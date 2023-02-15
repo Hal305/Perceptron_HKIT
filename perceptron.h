@@ -4,8 +4,8 @@
 
 struct TrainingSet
 {
-    std::vector<double> inputs;
-    double output;
+    std::vector<std::pair<double, double>> inputs;
+    double desiredOutput;
     int inputCount;
 };
 
@@ -15,14 +15,14 @@ public:
     Perceptron(std::vector<TrainingSet> set);
     ~Perceptron();
     std::vector<TrainingSet> trainingSets;
-    std::vector<double> weights;
+    std::vector<std::pair<double, double>> weights;
     double bias;
     double totalError = 0;
 
     void InitialisedWeight();
-    void CalculateOutput(int i, int j);
+    double CalculateOutput(int i);
     void UpdateWeight(int i, int j);
-    double DotProductBias(std::vector<double> inputs, std::vector<double> weights);
+    double DotProductBias(std::pair<double, double>, std::pair<double, double> weights);
     void Train(int epochs);
 };
 

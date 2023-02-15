@@ -1,34 +1,16 @@
 #include <iostream>
 #include "perceptron.h"
 
+void initTrainingSets(std::vector<TrainingSet> &sets);
 
 int main()
 {
 
     std::cout << "Setup the Training Set" << std::endl;
-    std::vector<TrainingSet> ts;
+    std::vector<TrainingSet> sets;
+    initTrainingSets(sets);
 
-    TrainingSet set1;
-    set1.inputs.push_back(0); set1.inputs.push_back(0);
-    set1.output = 1;
-    ts.push_back(set1);
-
-    TrainingSet set2;
-    set2.inputs.push_back(0); set2.inputs.push_back(1);
-    set2.output = 1;
-    ts.push_back(set2);
-
-    TrainingSet set3;
-    set3.inputs.push_back(1); set3.inputs.push_back(0);
-    set3.output = 1;
-    ts.push_back(set3);
-
-    TrainingSet set4;
-    set4.inputs.push_back(1); set4.inputs.push_back(1);
-    set4.output = 1;
-    ts.push_back(set4);
-
-    Perceptron p(ts);
+    Perceptron p(sets);
 
     std::cout << "Training the perceptron" << std::endl;
     p.Train(6);
@@ -39,8 +21,27 @@ int main()
 //    std::cout <<  "Test 0 0 -> " << p.CalculateOutput(0,0) << "\n";
 //    std::cout <<  "Test 0 0 -> " << p.CalculateOutput(0,1) << "\n";
 //    std::cout <<  "Test 0 0 -> " << p.CalculateOutput(1,0) << "\n";
-//    std::cout <<  "Test 0 0 -> " << p.CalculateOutput(1,1) << "\n";
+//    std::cout <<  "Test 0 0 -> " << p.CalculateOutput(1,1) << "\n";;
 
     getchar();
     return 0;
+}
+
+void initTrainingSets(std::vector<TrainingSet> &sets)
+{
+    std::vector<std::pair<double, double>> input;
+    input.push_back({0.f, 0.f});
+    input.push_back({0.f, 1.f});
+    input.push_back({1.f, 0.f});
+    input.push_back({1.f, 1.f});
+    double outputs[4] {0.f, 1.f, 1.f, 0.f};
+
+    for(unsigned int i = 0; i < input.size(); i++)
+    {
+        TrainingSet set;
+        set.inputs.push_back(input[i]);
+        set.desiredOutput = outputs[i];
+        sets.push_back(set);
+    }
+
 }

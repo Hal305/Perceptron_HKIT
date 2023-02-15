@@ -15,17 +15,23 @@ Perceptron::~Perceptron()
 void Perceptron::InitialisedWeight()
 {
     srand(time(NULL));
-    double w = ((double)(rand()%21) - 10.f) / 10.f;
-    std::cout <<  w << "\n";
-    weights.push_back(w);
-    w = ((double)(rand()%21) - 10.f) / 10.f;
-    std::cout <<  w << "\n";
+    std::pair<double, double> w = {((double)(rand()%21) - 10.f) / 10.f,
+                           ((double)(rand()%21) - 10.f) / 10.f};
+
     weights.push_back(w);
 }
 
-void Perceptron::CalculateOutput(int i, int j)
-{
-    ;// Input1 * Weight1 + Input2 * Weight2 + Bias
+double Perceptron::CalculateOutput(int i)
+{   // Input1 * Weight1 + Input2 * Weight2 + Bias
+    double output = trainingSets[i].inputs[i].first * weights[i].first
+            + trainingSets[i].inputs[i].second * weights[i].second + bias;
+
+    if(output > 0.f)
+        output = 1.f;
+    else
+        output = 0.f;
+
+    return output;
 }
 
 void Perceptron::UpdateWeight(int i, int j)
@@ -33,7 +39,7 @@ void Perceptron::UpdateWeight(int i, int j)
     ;//Input(x) * ErrorDifference + Weight(x)
 }
 
-double Perceptron::DotProductBias(std::vector<double> inputs, std::vector<double> weights)
+double Perceptron::DotProductBias(std::pair<double, double>, std::pair<double, double> weights)
 {
     return 0;
 }

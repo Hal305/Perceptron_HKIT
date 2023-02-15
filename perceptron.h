@@ -4,7 +4,7 @@
 
 struct TrainingSet
 {
-    std::vector<std::pair<double, double>> inputs;
+    std::pair<double, double> inputs;
     double desiredOutput;
     int inputCount;
 };
@@ -12,7 +12,7 @@ struct TrainingSet
 class Perceptron
 {
 public:
-    Perceptron(std::vector<TrainingSet> set);
+    Perceptron(std::vector<TrainingSet> &set);
     ~Perceptron();
     std::vector<TrainingSet> trainingSets;
     std::vector<std::pair<double, double>> weights;

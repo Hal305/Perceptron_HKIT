@@ -2,8 +2,9 @@
 #include <iostream>
 #include <ctime>
 
-Perceptron::Perceptron(std::vector<TrainingSet> set)
+Perceptron::Perceptron(std::vector<TrainingSet> &set)
 {
+    trainingSets = set;
     InitialisedWeight();
 }
 
@@ -23,8 +24,8 @@ void Perceptron::InitialisedWeight()
 
 double Perceptron::CalculateOutput(int i)
 {   // Input1 * Weight1 + Input2 * Weight2 + Bias
-    double output = trainingSets[i].inputs[i].first * weights[i].first
-            + trainingSets[i].inputs[i].second * weights[i].second + bias;
+    double output = trainingSets[i].inputs.first * weights[0].first
+            + trainingSets[i].inputs.second * weights[0].second + bias;
 
     if(output > 0.f)
         output = 1.f;

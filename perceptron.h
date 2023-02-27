@@ -1,10 +1,11 @@
 #ifndef PERCEPTRON_H
 #define PERCEPTRON_H
 #include <vector>
+#include <string>
 
 struct TrainingSet
 {
-    std::pair<double, double> inputs;
+    double inputs[2];
     double desiredOutput;
     int inputCount;
 };
@@ -15,15 +16,14 @@ public:
     Perceptron(std::vector<TrainingSet> &set);
     ~Perceptron();
     std::vector<TrainingSet> trainingSets;
-    std::vector<std::pair<double, double>> weights;
+    double weights[2];
     double bias;
     double totalError = 0;
 
     void InitialisedWeight();
-    double CalculateOutput(int i);
-    void UpdateWeight(int i, int j);
-    double DotProductBias(std::pair<double, double>, std::pair<double, double> weights);
-    void Train(int epochs);
+    double CalculateOutput(double in1, double in2, int index);
+    void UpdateWeightAndBias(double input1, double input2);
+    std::string Train(int epochs);
 };
 
 #endif // PERCEPTRON_H

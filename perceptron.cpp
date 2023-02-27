@@ -6,46 +6,46 @@ Perceptron::Perceptron(std::vector<TrainingSet> &set)
 {
     trainingSets = set;
     InitialisedWeight();
+    bias = ((double)(rand()%21) - 10.f) / 10.f;
 }
 
 Perceptron::~Perceptron()
 {
-    ;
+
 }
 
 void Perceptron::InitialisedWeight()
 {
     srand(time(NULL));
-    std::pair<double, double> w = {((double)(rand()%21) - 10.f) / 10.f,
+    double w[2] = {((double)(rand()%21) - 10.f) / 10.f,
                            ((double)(rand()%21) - 10.f) / 10.f};
 
-    weights.push_back(w);
+    weights[0] = w[0];
+    weights[1] = w[1];
 }
 
-double Perceptron::CalculateOutput(int i)
+double Perceptron::CalculateOutput(double input1, double input2, int index)
 {   // Input1 * Weight1 + Input2 * Weight2 + Bias
-    double output = trainingSets[i].inputs.first * weights[0].first
-            + trainingSets[i].inputs.second * weights[0].second + bias;
+    double output = input1 * weights[0] + input2 * weights[1] + bias;
 
-    if(output > 0.f)
-        output = 1.f;
+    if(output > 0.0f)
+        output = 1.0f;
     else
-        output = 0.f;
+        output = 0.0f;
 
+    totalError = trainingSets[index].desiredOutput - output;
+    UpdateWeightAndBias(input1, input2);
     return output;
 }
 
-void Perceptron::UpdateWeight(int i, int j)
-{
-    ;//Input(x) * ErrorDifference + Weight(x)
+void Perceptron::UpdateWeightAndBias(double input1, double input2)
+{   // Input(x) * ErrorDifference + Weight(x)
+    weights[0] += input1 * totalError;
+    weights[1] += input2 * totalError;
+    bias += totalError;
 }
 
-double Perceptron::DotProductBias(std::pair<double, double>, std::pair<double, double> weights)
+std::string Perceptron::Train(int epochs)
 {
-    return 0;
-}
-
-void Perceptron::Train(int epochs)
-{
-    ;
+    return " ";
 }

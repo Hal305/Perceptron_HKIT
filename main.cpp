@@ -1,51 +1,37 @@
 #include <iostream>
 #include "perceptron.h"
 
-const int size = 4;
-void initTrainingSets(std::vector<TrainingSet> &sets);
-
 int main()
 {
 
     std::cout << "Setup the Training Set" << std::endl;
-    std::vector<TrainingSet> sets;
-    initTrainingSets(sets);
-    Perceptron p(sets);
+    std::vector<TrainingSet> ts;
 
-//    std::cout << "Training the perceptron" << std::endl;
-//    p.Train(6);
+    const int in[2][4] ={{0,0,1,1},
+                    {0,1,0,1}};
+    const int out[4] = {1,1,1,1};
+
+    for (int i = 0; i < 4; i++)
+    {
+        TrainingSet set;
+        set.inputs[0] = in[0][i];
+        set.inputs[1] = in[1][i];
+        set.desiredOutput = out[i];
+        ts.push_back(set);
+    }
+
+
+    Perceptron p(ts);
+
+    std::cout << "Training the preceptron" << std::endl;
+    std::cout << p.Train(6) << "\n";
 
     std::cout << "Press Enter to see calculate output..." << std::endl;
     getchar();
 
-    for (int i = 0; i < size; i++)
-    {
-        std::cout <<  "Test " << sets[i].inputs.first << " " << sets[i].inputs.second << " -> " << p.CalculateOutput(i) << "\n";
-    }
+    for (int i = 0; i < 4; i++)
+        std::cout <<  "Test " << i + 1 << ": " << in[0][i] << " " << in[1][i] <<
+                      " -> " << p.CalculateOutput(in[0][i], in[1][i], i) << "\n";
 
-    getchar();
     return 0;
-}
-
-void initTrainingSets(std::vector<TrainingSet> &sets)
-{
-
-    std::vector<std::pair<double, double>> input;
-    input.push_back({0.f, 0.f});
-    input.push_back({0.f, 1.f});
-    input.push_back({1.f, 0.f});
-    input.push_back({1.f, 1.f});
-    double outputs[size] {0.f, 1.f, 1.f, 0.f};
-
-    for(unsigned int i = 0; i < size; i++)
-    {
-        TrainingSet tempSet;
-        std::pair<double, double> inputParam = input[i];
-        tempSet.inputCount = i;
-        tempSet.inputs = inputParam;
-        tempSet.desiredOutput = outputs[i];
-        sets.push_back(tempSet);
-        std::cout << sets[i].inputs.first << " " << sets[i].inputs.second << "\n";
-    }
-
 }

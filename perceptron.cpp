@@ -5,8 +5,7 @@
 Perceptron::Perceptron(std::vector<TrainingSet> &set)
 {
     trainingSets = set;
-    InitialisedWeight();
-    bias = ((double)(rand()%11) - 20.f) / 10.f;
+    RandomiseWeightAndBias();
 }
 
 Perceptron::~Perceptron()
@@ -14,14 +13,14 @@ Perceptron::~Perceptron()
 
 }
 
-void Perceptron::InitialisedWeight()
+void Perceptron::RandomiseWeightAndBias()
 {
     srand(time(NULL));
-    double w[2] = {((double)(rand()%11) - 20.f) / 10.f,
-                           ((double)(rand()%11) - 20.f) / 10.f};
-
+    double w[2] = {((double)(rand()%21) - 10.f) / 10.f,
+                    ((double)(rand()%21) - 10.f) / 10.f};
     weights[0] = w[0];
     weights[1] = w[1];
+    bias = (double)((rand()%21) - 10.f) / 10.f;
 }
 
 double Perceptron::CalculateOutput(double input1, double input2, int index)

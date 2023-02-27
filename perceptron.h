@@ -20,7 +20,7 @@ public:
     double bias;
     double error = 0;
 
-    void InitialisedWeight();
+    void RandomiseWeightAndBias();
     double CalculateOutput(double in1, double in2, int index);
     void UpdateWeightAndBias(double input1, double input2);
     std::string Train(int epochs);

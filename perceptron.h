@@ -18,7 +18,7 @@ public:
     std::vector<TrainingSet> trainingSets;
     double weights[2];
     double bias;
-    double totalError = 0;
+    double error = 0;
 
     void InitialisedWeight();
     double CalculateOutput(double in1, double in2, int index);

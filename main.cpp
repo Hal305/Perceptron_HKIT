@@ -20,7 +20,6 @@ int main()
         ts.push_back(set);
     }
 
-
     Perceptron p(ts);
 
     std::cout << "Training the preceptron" << std::endl;

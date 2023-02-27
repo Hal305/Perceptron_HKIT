@@ -6,7 +6,7 @@ Perceptron::Perceptron(std::vector<TrainingSet> &set)
 {
     trainingSets = set;
     InitialisedWeight();
-    bias = ((double)(rand()%21) - 10.f) / 10.f;
+    bias = ((double)(rand()%11) - 20.f) / 10.f;
 }
 
 Perceptron::~Perceptron()
@@ -17,8 +17,8 @@ Perceptron::~Perceptron()
 void Perceptron::InitialisedWeight()
 {
     srand(time(NULL));
-    double w[2] = {((double)(rand()%21) - 10.f) / 10.f,
-                           ((double)(rand()%21) - 10.f) / 10.f};
+    double w[2] = {((double)(rand()%11) - 20.f) / 10.f,
+                           ((double)(rand()%11) - 20.f) / 10.f};
 
     weights[0] = w[0];
     weights[1] = w[1];
@@ -33,19 +33,41 @@ double Perceptron::CalculateOutput(double input1, double input2, int index)
     else
         output = 0.0f;
 
-    totalError = trainingSets[index].desiredOutput - output;
+    // desired output - calculated output
+    error = trainingSets[index].desiredOutput - output;
     UpdateWeightAndBias(input1, input2);
     return output;
 }
 
 void Perceptron::UpdateWeightAndBias(double input1, double input2)
 {   // Input(x) * ErrorDifference + Weight(x)
-    weights[0] += input1 * totalError;
-    weights[1] += input2 * totalError;
-    bias += totalError;
+    weights[0] += input1 * error;
+    weights[1] += input2 * error;
+    bias += error;
 }
 
 std::string Perceptron::Train(int epochs)
 {
-    return " ";
+    std::string fullOutput = "";
+
+    for (int i = 0; i < epochs; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            fullOutput += "W1: ";
+            fullOutput += std::to_string(weights[0]);
+            fullOutput += " W2: ";
+            fullOutput += std::to_string(weights[1]);
+            fullOutput += " B: ";
+            fullOutput += std::to_string(bias);
+            fullOutput += "\n";
+            CalculateOutput(trainingSets[j].inputs[0], trainingSets[j].inputs[1], j);
+        }
+        fullOutput += "Epoch#: ";
+        fullOutput += std::to_string(i+1);
+        fullOutput += " Total error: ";
+        fullOutput += std::to_string(error) ;
+        fullOutput += "\n";
+    }
+    return fullOutput;
 }

@@ -5,7 +5,7 @@ CONFIG -= qt
 
 SOURCES += \
         main.cpp \
-        perceptron.cpp
+        perceptron_hkit.cpp
 
 HEADERS += \
-    perceptron.h
+    perceptron_hkit.h

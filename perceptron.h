@@ -19,6 +19,7 @@ public:
     double weights[2];
     double bias;
     double error = 0;
+    double totalError = 0;
 
     void RandomiseWeightAndBias();
     double CalculateOutput(double in1, double in2, int index);

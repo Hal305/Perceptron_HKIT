@@ -60,12 +60,14 @@ std::string Perceptron::Train(int epochs)
             fullOutput += " B: ";
             fullOutput += std::to_string(bias);
             fullOutput += "\n";
+            totalError += error;
             CalculateOutput(trainingSets[j].inputs[0], trainingSets[j].inputs[1], j);
         }
         fullOutput += "Epoch#: ";
         fullOutput += std::to_string(i+1);
         fullOutput += " Total error: ";
-        fullOutput += std::to_string(error) ;
+        fullOutput += std::to_string(totalError);
+        totalError = 0;
         fullOutput += "\n";
     }
     return fullOutput;

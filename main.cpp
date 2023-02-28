@@ -7,9 +7,11 @@ int main()
     std::cout << "Setup the Training Set" << std::endl;
     std::vector<TrainingSet> ts;
 
-    const int in[2][4] ={{0,0,1,1},
-                    {0,1,0,1}};
-    const int out[4] = {1,1,1,1};
+    const int in[2][4] ={
+        {0,0,1,1},
+        {0,1,0,1}
+    };
+    const int out[4] = {0,1,1,1};
 
     for (int i = 0; i < 4; i++)
     {

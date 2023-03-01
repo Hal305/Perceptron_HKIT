@@ -14,7 +14,7 @@ Perceptron_HKIT::~Perceptron_HKIT()
 
 void Perceptron_HKIT::RandomiseWeightAndBias()
 {
-    int range = 1.f;
+    int range = 1;
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_real_distribution<double> dist(-range, range);

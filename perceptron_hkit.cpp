@@ -1,6 +1,5 @@
 #include "Perceptron_HKIT.h"
-#include <iostream>
-#include <ctime>
+#include <random>
 
 Perceptron_HKIT::Perceptron_HKIT(std::vector<TrainingSet_HKIT> &set)
 {
@@ -15,12 +14,14 @@ Perceptron_HKIT::~Perceptron_HKIT()
 
 void Perceptron_HKIT::RandomiseWeightAndBias()
 {
-    srand(time(NULL));
-    double w[2] = {((double)(rand()%2100000) - 1000000.f) / 1000000.f,
-                    ((double)(rand()%2100000) - 1000000.f) / 1000000.f};
-    weights[0] = w[0];
-    weights[1] = w[1];
-    bias = (double)((rand()%2100000) - 1000000.f) / 1000000.f;
+    int range = 1.f;
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_real_distribution<double> dist(-range, range);
+
+    weights[0] = dist(rd);
+    weights[1] = dist(rd);
+    bias = (double)dist(rd);
 }
 
 double Perceptron_HKIT::CalculateOutput(double input1, double input2, int index)

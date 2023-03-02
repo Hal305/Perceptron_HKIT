@@ -21,7 +21,7 @@ void Perceptron_HKIT::RandomiseWeightAndBias()
 
     weights[0] = dist(rd);
     weights[1] = dist(rd);
-    bias = (double)dist(rd);
+    bias = dist(rd);
 }
 
 double Perceptron_HKIT::CalculateOutput(double input1, double input2)

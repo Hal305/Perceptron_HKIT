@@ -16,13 +16,13 @@ class Perceptron_HKIT
     void UpdateWeightAndBias(double input1, double input2);
 
 public:
-    Perceptron_HKIT(std::vector<TrainingSet_HKIT> &set);
+    Perceptron_HKIT(std::vector<TrainingSet_HKIT> set);
     ~Perceptron_HKIT();
     std::vector<TrainingSet_HKIT> trainingSets;
     std::vector<double> weights = {0.0f, 0.0f};
     double bias = 0;
     double totalError = 0;
-double CalculateOutput(double in1, double in2, int index);
+    double CalculateOutput(double input1, double input2);
     void RandomiseWeightAndBias();
 
     std::string Train(int epochs);

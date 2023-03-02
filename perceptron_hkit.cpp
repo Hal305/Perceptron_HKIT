@@ -1,7 +1,7 @@
 #include "Perceptron_HKIT.h"
 #include <random>
 
-Perceptron_HKIT::Perceptron_HKIT(std::vector<TrainingSet_HKIT> &set)
+Perceptron_HKIT::Perceptron_HKIT(std::vector<TrainingSet_HKIT> set)
 {
     trainingSets = set;
     RandomiseWeightAndBias();
@@ -24,7 +24,7 @@ void Perceptron_HKIT::RandomiseWeightAndBias()
     bias = (double)dist(rd);
 }
 
-double Perceptron_HKIT::CalculateOutput(double input1, double input2, int index)
+double Perceptron_HKIT::CalculateOutput(double input1, double input2)
 {   // Input1 * Weight1 + Input2 * Weight2 + Bias
     double output = input1 * weights[0] + input2 * weights[1] + bias;
 
@@ -32,10 +32,6 @@ double Perceptron_HKIT::CalculateOutput(double input1, double input2, int index)
         output = 1.0f;
     else
         output = 0.0f;
-
-    // desired output - calculated output
-    error = trainingSets[index].desiredOutput - output;
-    UpdateWeightAndBias(input1, input2);
     return output;
 }
 
@@ -61,8 +57,12 @@ std::string Perceptron_HKIT::Train(int epochs)
             fullOutput += " B: ";
             fullOutput += std::to_string(bias);
             fullOutput += "\n";
+
             totalError += error;
-            CalculateOutput(trainingSets[j].inputs[0], trainingSets[j].inputs[1], j);
+            double output = CalculateOutput(trainingSets[j].inputs[0], trainingSets[j].inputs[1]);
+            // desired output - calculated output
+            error = trainingSets[j].desiredOutput - output;
+            UpdateWeightAndBias(trainingSets[j].inputs[0], trainingSets[j].inputs[1]);
         }
         fullOutput += "Epoch#: ";
         fullOutput += std::to_string(i+1);

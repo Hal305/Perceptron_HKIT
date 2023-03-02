@@ -32,7 +32,7 @@ int main()
 
     for (int i = 0; i < 4; i++)
         std::cout <<  "Test " << i + 1 << ": " << in[0][i] << " " << in[1][i] <<
-                      " -> " << p.CalculateOutput(in[0][i], in[1][i], i) << "\n";
+                      " -> " << p.CalculateOutput(in[0][i], in[1][i]) << "\n";
 
     return 0;
 }

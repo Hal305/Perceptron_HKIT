@@ -52,7 +52,7 @@ std::string Perceptron_HKIT::Train(int epochs)
 
     for (int i = 0; i < epochs; i++)
     {
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < trainingSets.size(); j++)
         {
             fullOutput += "W1: ";
             fullOutput += std::to_string(weights[0]);
